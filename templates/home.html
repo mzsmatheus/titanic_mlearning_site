@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação com scikit-learn</title>
+</head>
+<body>
+    <h1>Classificação com scikit-learn</h1>
+
+<!-- 
+    <form>
+        <label for="classificador">Selecione o classificador:</label>
+        <select id="classificador" name="classificador">
+            <option value="KNN">KNN</option>
+            <option value="MLP">NB</option>
+            <option value="DT">DT</option>
+            <option value="RF">RF</option>
+        </select>
+        <br><br>
+-->
+
+        <label for="parametros">Alterar os parâmetros max depth:</label>
+        <input type="text" id="parametros" name="parametros">
+        <br><br>
+
+        <input type="submit" value="Executar">
+    </form>
+
+    <h2>Resultados:</h2>
+    <ul>
+        <li>Acurácia: {{ results.acuracia }}</li>
+        <li>Precisão: {{ results.precisao }}</li>
+        <li>Recall: {{ results.recall }}</li>
+        <li>F1-Score: {{ results.f1score }}</li>
+    </ul>
+
+    <h3>Matriz de Confusão:</h3>
+    <img src="{{ url_for('static', filename='confusion_matrix.png') }}" alt="Matriz de Confusão">
+    
+
+</body>
+</html>
