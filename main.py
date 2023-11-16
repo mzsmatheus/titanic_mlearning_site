@@ -10,11 +10,29 @@ app = Flask(__name__)
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
     if request.method == 'POST':
-        max_depth = int(request.form['parametros'])
-        results = ml.treinamento_dt(max_depth)
+        
+        if 'classificador' in request.form:
+            classificador = request.form['classificador'] 
+            max_depth = int(request.form.get('parametros', 0))
 
-        return render_template("home.html", results=results)
+            if classificador == 'KNN':
+                results = ml.treinamentoteste('KNN', max_depth)
+            elif classificador == 'MLP':
+                results = ml.treinamentoteste('MLP', max_depth)
+            elif classificador == 'DT':
+                results = ml.treinamentoteste('DT', max_depth)
+            elif classificador == 'RF':
+                results = ml.treinamentoteste('RF', max_depth)
+            else:
+                results = {}
+            
+            return render_template("home.html", results=results)
+
+        else:
+
+            return "Classificador não selecionado."
 
     return render_template("home.html", results={})
+
 
 app.run(debug=True)

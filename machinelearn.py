@@ -12,7 +12,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 
-def treinamento_dt(max_depth):
+def treinamentoteste(classifier_type, max_depth):
 
     url = 'https://learnenough.s3.amazonaws.com/titanic.csv'
     titanic = pd.read_csv(url)
@@ -36,42 +36,110 @@ def treinamento_dt(max_depth):
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
-    clf_dt = DecisionTreeClassifier(random_state=1, max_depth=max_depth)
-    clf_dt.fit(X_train, y_train)
-    acc_dt =  clf_dt.score(X_test, y_test)
-    y_pred = clf_dt.predict(X_test)
-    #print(y_pred)
-    #print(y_test)
-    #print(acc_dt)
+    if classifier_type == 'DT':
+        clf_dt = DecisionTreeClassifier(random_state=1, max_depth=max_depth)
+        clf_dt.fit(X_train, y_train)
+        acc_dt = clf_dt.score(X_test, y_test)
+        y_pred = clf_dt.predict(X_test)
 
-    print(classification_report(y_test, y_pred))
+        cm = confusion_matrix(y_test, y_pred)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot()
+        plt.savefig('static/confusion_matrix.png')
+        plt.close()
 
-    cm = confusion_matrix(y_test, y_pred)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-    disp.plot()
-    plt.savefig('static/confusion_matrix.png')
-    plt.close()
+        acuracia = accuracy_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred, average='macro')
+        precisao = precision_score(y_test, y_pred, average='macro')
+        f1 = f1_score(y_test, y_pred, average='macro')
 
+        results = {
+            "acuracia": acuracia,
+            "precisao": precisao,
+            "recall": recall,
+            "f1score": f1
+        }
 
-    acuracia = accuracy_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred, average='macro')
-    precisao = precision_score(y_test, y_pred, average='macro')
-    f1 = f1_score(y_test, y_pred, average='macro')
+        return results
 
+    elif classifier_type == 'RF': 
+        clf_rfc = RandomForestClassifier(max_depth=max_depth, random_state=0)
+        clf_rfc.fit(X_train, y_train)
+        acc_rfc = clf_rfc.score(X_test, y_test)
+        y_pred = clf_rfc.predict(X_test)
 
-    print(acuracia)
-    print(precisao)
-    print(recall)
-    print(f1)
+        cm = confusion_matrix(y_test, y_pred)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot()
+        plt.savefig('static/confusion_matrix.png')
+        plt.close()
 
+        acuracia = accuracy_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred, average='macro')
+        precisao = precision_score(y_test, y_pred, average='macro')
+        f1 = f1_score(y_test, y_pred, average='macro')
 
-    
+        results = {
+            "acuracia": acuracia,
+            "precisao": precisao,
+            "recall": recall,
+            "f1score": f1
+        }
 
-    results = {
-        "acuracia": acuracia,
-        "precisao": precisao,
-        "recall": recall,
-        "f1score": f1
-    }
+        return results
 
-    return results
+    elif classifier_type == 'NB':
+        clf_nb = GaussianNB()
+        clf_nb.fit(X_train, y_train)
+        acc_nb = clf_nb.score(X_test, y_test)
+        y_pred = clf_nb.predict(X_test)
+        
+
+        cm = confusion_matrix(y_test, y_pred)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot()
+        plt.savefig('static/confusion_matrix.png')
+        plt.close()
+
+        acuracia = accuracy_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred, average='macro')
+        precisao = precision_score(y_test, y_pred, average='macro')
+        f1 = f1_score(y_test, y_pred, average='macro')
+
+        results = {
+            "acuracia": acuracia,
+            "precisao": precisao,
+            "recall": recall,
+            "f1score": f1
+        }
+
+        return results
+
+    elif classifier_type == 'KNN':
+        clf_knn = KNeighborsClassifier(n_neighbors=max_depth)
+        clf_knn.fit(X_train, y_train)
+        acc_knn = clf_knn.score(X_test, y_test)
+        y_pred = clf_knn.predict(X_test)
+        
+
+        cm = confusion_matrix(y_test, y_pred)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot()
+        plt.savefig('static/confusion_matrix.png')
+        plt.close()
+
+        acuracia = accuracy_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred, average='macro')
+        precisao = precision_score(y_test, y_pred, average='macro')
+        f1 = f1_score(y_test, y_pred, average='macro')
+
+        results = {
+            "acuracia": acuracia,
+            "precisao": precisao,
+            "recall": recall,
+            "f1score": f1
+        }
+
+        return results
+    else:
+        return {}

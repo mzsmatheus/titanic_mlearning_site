@@ -8,25 +8,22 @@
 <body>
     <h1>Classificação com scikit-learn</h1>
 
-<!-- 
-    <form>
+    <form method="POST">
         <label for="classificador">Selecione o classificador:</label>
         <select id="classificador" name="classificador">
             <option value="KNN">KNN</option>
             <option value="MLP">NB</option>
-            <option value="DT">DT</option>
+            <option value="DT" selected>DT</option>
             <option value="RF">RF</option>
         </select>
         <br><br>
--->
-
-<form method="POST">
-    <label for="parametros">Alterar os parâmetros max depth (0-10):</label>
-    <input type="number" id="parametros" name="parametros" min="0" max="10">
-    <br><br>    
-
-    <input type="submit" value="Executar">
-</form>
+    
+        <label for="parametros">Alterar os parâmetros (0-10):</label>
+        <input type="number" id="parametros" name="parametros" min="0" max="10">
+        <br><br>    
+    
+        <input type="submit" value="Executar">
+    </form>
 
     <h2>Resultados:</h2>
     <ul>
