@@ -12,7 +12,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 
-def treinamentoteste():
+def treinamento_dt(max_depth):
 
     url = 'https://learnenough.s3.amazonaws.com/titanic.csv'
     titanic = pd.read_csv(url)
@@ -36,7 +36,7 @@ def treinamentoteste():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
-    clf_dt = DecisionTreeClassifier(random_state=1)
+    clf_dt = DecisionTreeClassifier(random_state=1, max_depth=max_depth)
     clf_dt.fit(X_train, y_train)
     acc_dt =  clf_dt.score(X_test, y_test)
     y_pred = clf_dt.predict(X_test)
@@ -49,8 +49,8 @@ def treinamentoteste():
     cm = confusion_matrix(y_test, y_pred)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot()
-    plt.savefig('static/confusion_matrix.png')  # Salva a matriz de confusão como uma imagem
-    plt.close()  # Fecha o plot para evitar que seja exibido diretamente
+    plt.savefig('static/confusion_matrix.png')
+    plt.close()
 
 
     acuracia = accuracy_score(y_test, y_pred)

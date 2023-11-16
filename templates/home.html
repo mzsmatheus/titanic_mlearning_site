@@ -20,12 +20,13 @@
         <br><br>
 -->
 
-        <label for="parametros">Alterar os parâmetros max depth:</label>
-        <input type="text" id="parametros" name="parametros">
-        <br><br>
+<form method="POST">
+    <label for="parametros">Alterar os parâmetros max depth (0-10):</label>
+    <input type="number" id="parametros" name="parametros" min="0" max="10">
+    <br><br>    
 
-        <input type="submit" value="Executar">
-    </form>
+    <input type="submit" value="Executar">
+</form>
 
     <h2>Resultados:</h2>
     <ul>
