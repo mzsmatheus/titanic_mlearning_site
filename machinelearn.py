@@ -62,7 +62,7 @@ def treinamentoteste(classifier_type, max_depth):
 
         results = {
             "tamanho:": size_str,
-            "classif": "Decision Tree",
+            "classif": "Decision Tree(Param: max_depth)",
             "media": "macro",
             "paramt": max_depth,
             "acuracia": acuracia,
@@ -92,7 +92,7 @@ def treinamentoteste(classifier_type, max_depth):
 
         results = {
             "tamanho:": size_str,
-            "classif": "Random Forest",
+            "classif": "Random Forest(Param: max_depth)",
             "media": "macro",
             "paramt": max_depth,
             "acuracia": acuracia,
@@ -123,7 +123,7 @@ def treinamentoteste(classifier_type, max_depth):
 
         results = {
             "tamanho:": size_str,
-            "classif": "Support Vector Classifier",
+            "classif": "Support Vector Classifier(Param: C)",
             "media": "macro",
             "paramt": max_depth,
             "acuracia": acuracia,
@@ -154,7 +154,7 @@ def treinamentoteste(classifier_type, max_depth):
 
         results = {
             "tamanho:": size_str,
-            "classif": "K-Nearest Neighbors",
+            "classif": "K-Nearest Neighbors(Param: n_neighbors)",
             "media": "macro",
             "paramt": max_depth,
             "acuracia": acuracia,
