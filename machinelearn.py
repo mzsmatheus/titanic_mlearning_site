@@ -14,6 +14,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 
 matplotlib.use('agg')
 def treinamentoteste(classifier_type, max_depth):
@@ -164,5 +165,36 @@ def treinamentoteste(classifier_type, max_depth):
         }
 
         return results
+
+    elif classifier_type == 'GBM': 
+        clf_gbm = GradientBoostingClassifier(learning_rate=max_depth, n_estimators=100) 
+        clf_gbm.fit(X_train, y_train)
+        acc_gbm = clf_gbm.score(X_test, y_test)
+        y_pred = clf_gbm.predict(X_test)
+
+        cm = confusion_matrix(y_test, y_pred)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot()
+        plt.savefig('static/confusion_matrix.png')
+        plt.close()
+
+        acuracia = accuracy_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred, average='macro')
+        precisao = precision_score(y_test, y_pred, average='macro')
+        f1 = f1_score(y_test, y_pred, average='macro')
+
+        results = {
+            "tamanho:": size_str,
+            "classif": "Gradient Boosting Classifier(Param: learning_rate)",
+            "media": "macro",
+            "paramt": max_depth,
+            "acuracia": acuracia,
+            "precisao": precisao,
+            "recall": recall,
+            "f1score": f1
+        }
+
+        return results
+
     else:
         return {}

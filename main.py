@@ -23,6 +23,8 @@ def homepage():
                 results = ml.treinamentoteste('DT', max_depth)
             elif classificador == 'RF':
                 results = ml.treinamentoteste('RF', max_depth)
+            elif classificador == 'GBM':
+                results = ml.treinamentoteste('GBM', max_depth)
             else:
                 results = {}
             
