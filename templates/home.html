@@ -3,39 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classificação com scikit-learn</title>
+    <title>Machine Learning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+        .centered-title {
+            text-align: center;
+        }
+
+        .adjusted-list {
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        .adjusted-list li {
+            margin-bottom: 0.5rem;
+            list-style-position: inside;
+        }
+
+    
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 2rem;
+        }
+
+        .results-list {
+            flex: 0 0 48%;
+            margin-top: 3rem;
+            margin-left: 3rem;
+        }
+
+        .confusion-matrix {
+            flex: 0 0 48%;
+            margin-right: 18.5rem;
+        }
+
+        .form-container {
+            margin-top: 3.5rem;
+            margin-left: 16.5rem;
+        }
+        .testes {
+    font-family: monospace;
+    background: linear-gradient(#2c2a2b 30%, #000721e9 70%);
+    color: #02f6c1;
+    height: 100%;
+}
+
+    .textos1 {
+        color: rgb(245, 235, 235);
+    }
+    </style>
 </head>
-<body>
-    <h1>Classificação com scikit-learn</h1>
+<body class="testes">
+    <div class="p-1 centered-title">
+        <h1 class="textos1", style="margin-top: 24px;">Machine Learning com Dataset do Titanic</h1>
 
-    <form method="POST">
-        <label for="classificador">Selecione o classificador:</label>
-        <select id="classificador" name="classificador">
-            <option value="KNN">KNN</option>
-            <option value="SVC">SVC</option>
-            <option value="DT" selected>DT</option>
-            <option value="RF">RF</option>
-        </select>
-        <br><br>
-    
-        <label for="parametros">Alterar os parâmetros (0-10):</label>
-        <input type="number" id="parametros" name="parametros" min="0" max="10">
-        <br><br>    
-    
-        <input type="submit" value="Executar">
-    </form>
+        <div class="form-container">
+            <form method="POST" class="row g-3">
+                <div class="col-auto">
+                    <label for="classificador" class="form-label">Selecione o classificador:</label>
+                    <select id="classificador" name="classificador" class="form-select">
+                        <option value="KNN">KNN</option>
+                        <option value="SVC">SVC</option>
+                        <option value="DT">DT</option>
+                        <option value="RF">RF</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label for="parametros" class="form-label">Alterar os parâmetros (0-10):</label>
+                    <input type="number" id="parametros" name="parametros" min="0" max="10" class="form-control">
+                </div>
+                <div class="col-auto mt-4">
+                    <br>
+                    <button type="submit" class="btn btn-primary" style="background-color: #102262e9;">Executar</button>
+                </div>
+            </form>
+        </div>
 
-    <h2>Resultados:</h2>
-    <ul>
-        <li>Acurácia: {{ results.acuracia }}</li>
-        <li>Precisão: {{ results.precisao }}</li>
-        <li>Recall: {{ results.recall }}</li>
-        <li>F1-Score: {{ results.f1score }}</li>
-    </ul>
+        <div class="flex-container">
+            <div class="results-list">
+                <h2>Resultados:</h2>
+                <br>
+                <ul class="adjusted-list" style="font-size: larger;">
+                    <li class="textos1">{{ size_str }}</li>
+                    <li class="textos1">Classificador: {{ results.classif }}</li>
+                    <li class="textos1">Parâmetro escolhido: {{ results.paramt }}</li>
+                    <br>
+                    <li>Tipo de Média: {{ results.media }}</li>
+                    <li class="fw-bold">Acurácia: {{ results.acuracia }}</li>
+                    <li class="fw-bold">Precisão: {{ results.precisao }}</li>
+                    <li class="fw-bold">Recall: {{ results.recall }}</li>
+                    <li class="fw-bold">F1-Score: {{ results.f1score }}</li>
+                </ul>
+            </div>
 
-    <h3>Matriz de Confusão:</h3>
-    <img src="{{ url_for('static', filename='confusion_matrix.png') }}" alt="Matriz de Confusão">
-    
+            <div class="confusion-matrix">
+                <h2 class="textos1">Matriz de Confusão:</h2>
+                <img src="{{ url_for('static', filename='confusion_matrix.png') }}" alt="Matriz de Confusão">
+            </div>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

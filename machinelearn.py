@@ -38,6 +38,9 @@ def treinamentoteste(classifier_type, max_depth):
     X = titanic.drop("Survived", axis=1)
     y = titanic["Survived"]
 
+    size = X.shape
+    size_str = f'Dimensões do DataSet: {size[0]} linhas, {size[1]} colunas'
+
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
     if classifier_type == 'DT':
@@ -58,6 +61,10 @@ def treinamentoteste(classifier_type, max_depth):
         f1 = f1_score(y_test, y_pred, average='macro')
 
         results = {
+            "tamanho:": size_str,
+            "classif": "Decision Tree",
+            "media": "macro",
+            "paramt": max_depth,
             "acuracia": acuracia,
             "precisao": precisao,
             "recall": recall,
@@ -84,6 +91,10 @@ def treinamentoteste(classifier_type, max_depth):
         f1 = f1_score(y_test, y_pred, average='macro')
 
         results = {
+            "tamanho:": size_str,
+            "classif": "Random Forest",
+            "media": "macro",
+            "paramt": max_depth,
             "acuracia": acuracia,
             "precisao": precisao,
             "recall": recall,
@@ -111,6 +122,10 @@ def treinamentoteste(classifier_type, max_depth):
         f1 = f1_score(y_test, y_pred, average='macro')
 
         results = {
+            "tamanho:": size_str,
+            "classif": "Support Vector Classifier",
+            "media": "macro",
+            "paramt": max_depth,
             "acuracia": acuracia,
             "precisao": precisao,
             "recall": recall,
@@ -138,6 +153,10 @@ def treinamentoteste(classifier_type, max_depth):
         f1 = f1_score(y_test, y_pred, average='macro')
 
         results = {
+            "tamanho:": size_str,
+            "classif": "K-Nearest Neighbors",
+            "media": "macro",
+            "paramt": max_depth,
             "acuracia": acuracia,
             "precisao": precisao,
             "recall": recall,

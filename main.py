@@ -26,7 +26,7 @@ def homepage():
             else:
                 results = {}
             
-            return render_template("home.html", results=results)
+            return render_template("home.html", size_str=results['tamanho:'], results=results)
 
         else:
 
