@@ -1,17 +1,21 @@
 #imports de ciencia de dados e machine learning
 import numpy as np
 import pandas as pd
+import matplotlib
 from matplotlib import pyplot as plt
 from sklearn.metrics import classification_report, accuracy_score, precision_score, recall_score, f1_score
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
 
 #imports dos classificadores
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 
+matplotlib.use('agg')
 def treinamentoteste(classifier_type, max_depth):
 
     url = 'https://learnenough.s3.amazonaws.com/titanic.csv'
@@ -88,11 +92,11 @@ def treinamentoteste(classifier_type, max_depth):
 
         return results
 
-    elif classifier_type == 'NB':
-        clf_nb = GaussianNB()
-        clf_nb.fit(X_train, y_train)
-        acc_nb = clf_nb.score(X_test, y_test)
-        y_pred = clf_nb.predict(X_test)
+    elif classifier_type == 'SVC':
+        clf_svc = make_pipeline(StandardScaler(), SVC(C=max_depth, gamma='auto'))
+        clf_svc.fit(X_train, y_train)
+        acc_svc = clf_svc.score(X_test, y_test)
+        y_pred = clf_svc.predict(X_test)
         
 
         cm = confusion_matrix(y_test, y_pred)

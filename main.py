@@ -17,8 +17,8 @@ def homepage():
 
             if classificador == 'KNN':
                 results = ml.treinamentoteste('KNN', max_depth)
-            elif classificador == 'MLP':
-                results = ml.treinamentoteste('MLP', max_depth)
+            elif classificador == 'SVC':
+                results = ml.treinamentoteste('SVC', max_depth)
             elif classificador == 'DT':
                 results = ml.treinamentoteste('DT', max_depth)
             elif classificador == 'RF':
