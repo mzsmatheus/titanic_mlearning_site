@@ -81,16 +81,16 @@ html, body {
                     </select>
                 </div>
                 <div class="col-auto">
-                    <label for="parametro1" class="form-label">Parâmetro principal (2-100):</label>
+                    <label for="parametro1" class="form-label">learning_rate (2-10):</label>
                     <input type="number" id="parametro1" name="parametro1" min="1" value="1" max="100" class="form-control">
                 </div>
                 <div class="col-auto">
-                    <label for="parametro2" class="form-label">Parâmetro secundário (2-10):</label>
+                    <label for="parametro2" class="form-label">max_depth (2-10):</label>
                     <input type="number" id="parametro2" name="parametro2" min="1" value="2" max="10" class="form-control">
                 </div>
                 <div class="col-auto">
-                    <label for="parametro3" class="form-label">Parâmetro terciário (2-100):</label>
-                    <input type="number" id="parametro3" name="parametro3" min="1"  value="2" max="100" class="form-control">
+                    <label for="parametro3" class="form-label">n_estimators (2-300):</label>
+                    <input type="number" id="parametro3" name="parametro3" min="1"  value="2" max="500" class="form-control">
                 </div>
                 <div class="col-auto mt-4">
                     <br>
@@ -124,7 +124,39 @@ html, body {
             </div>
         </div>
     </div>
-
+    <script>
+        const classificadorSelect = document.getElementById('classificador');
+ 
+        const parametro1Label = document.querySelector('label[for="parametro1"]');
+        const parametro2Label = document.querySelector('label[for="parametro2"]');
+        const parametro3Label = document.querySelector('label[for="parametro3"]');
+    
+        classificadorSelect.addEventListener('change', function() {
+            const selectedClassifier = this.value;
+    
+            if (selectedClassifier === 'DT') {
+                parametro1Label.textContent = 'min_samples_leaf (2-100)';
+                parametro2Label.textContent = 'max_depth (2-10)';
+                parametro3Label.textContent = 'min_samples_split (2-100)';
+            } else if (selectedClassifier === 'RF') {
+                parametro1Label.textContent = 'max_depth (2-10)';
+                parametro2Label.textContent = 'n_estimators (2-10)';
+                parametro3Label.textContent = 'min_samples_split (2-100)';
+            } else if (selectedClassifier === 'SVC') {
+                parametro1Label.textContent = 'C (1-10)';
+                parametro2Label.textContent = 'degree (2-10)';
+                parametro3Label.textContent = 'gamma (2-100)';
+            } else if (selectedClassifier === 'KNN') {
+                parametro1Label.textContent = 'n_neighbors (1-10)';
+                parametro2Label.textContent = 'n_jobs (2-10)';
+                parametro3Label.textContent = 'leaf_size (2-100)';
+            } else {
+                parametro1Label.textContent = 'learning_rate (2-10)';
+                parametro2Label.textContent = 'max_depth (2-10)';
+                parametro3Label.textContent = 'n_estimators (2-300)';
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
