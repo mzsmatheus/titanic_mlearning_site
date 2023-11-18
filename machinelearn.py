@@ -17,7 +17,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 
 matplotlib.use('agg')
-def treinamentoteste(classifier_type, max_depth):
+def treinamentoteste(classifier_type, param1, param2, param3):
 
     url = 'https://learnenough.s3.amazonaws.com/titanic.csv'
     titanic = pd.read_csv(url)
@@ -35,6 +35,10 @@ def treinamentoteste(classifier_type, max_depth):
     titanic['Sex'] = titanic["Sex"].map(sexo)
 
     #print(titanic.head(6))
+    print(classifier_type)
+    print(param1)
+    print(param2)
+    print(param3)
 
     X = titanic.drop("Survived", axis=1)
     y = titanic["Survived"]
@@ -45,7 +49,7 @@ def treinamentoteste(classifier_type, max_depth):
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
     if classifier_type == 'DT':
-        clf_dt = DecisionTreeClassifier(random_state=1, max_depth=max_depth)
+        clf_dt = DecisionTreeClassifier(min_samples_leaf=param1, max_depth=param2, min_samples_split=param3)
         clf_dt.fit(X_train, y_train)
         acc_dt = clf_dt.score(X_test, y_test)
         y_pred = clf_dt.predict(X_test)
@@ -63,9 +67,9 @@ def treinamentoteste(classifier_type, max_depth):
 
         results = {
             "tamanho:": size_str,
-            "classif": "Decision Tree(Param: max_depth)",
+            "classif": "Decision Tree",
             "media": "macro",
-            "paramt": max_depth,
+            "paramt1": param1,
             "acuracia": acuracia,
             "precisao": precisao,
             "recall": recall,
@@ -75,7 +79,7 @@ def treinamentoteste(classifier_type, max_depth):
         return results
 
     elif classifier_type == 'RF': 
-        clf_rfc = RandomForestClassifier(max_depth=max_depth, random_state=0)
+        clf_rfc = RandomForestClassifier(max_depth=param1, n_estimators=param2, min_samples_split=param3)
         clf_rfc.fit(X_train, y_train)
         acc_rfc = clf_rfc.score(X_test, y_test)
         y_pred = clf_rfc.predict(X_test)
@@ -93,9 +97,9 @@ def treinamentoteste(classifier_type, max_depth):
 
         results = {
             "tamanho:": size_str,
-            "classif": "Random Forest(Param: max_depth)",
+            "classif": "Random Forest",
             "media": "macro",
-            "paramt": max_depth,
+            "paramt1": param1,
             "acuracia": acuracia,
             "precisao": precisao,
             "recall": recall,
@@ -105,7 +109,7 @@ def treinamentoteste(classifier_type, max_depth):
         return results
 
     elif classifier_type == 'SVC':
-        clf_svc = make_pipeline(StandardScaler(), SVC(C=max_depth, gamma='auto'))
+        clf_svc = make_pipeline(StandardScaler(), SVC(C=param1, gamma=param3, degree=param2))
         clf_svc.fit(X_train, y_train)
         acc_svc = clf_svc.score(X_test, y_test)
         y_pred = clf_svc.predict(X_test)
@@ -124,9 +128,9 @@ def treinamentoteste(classifier_type, max_depth):
 
         results = {
             "tamanho:": size_str,
-            "classif": "Support Vector Classifier(Param: C)",
+            "classif": "Support Vector Classifier",
             "media": "macro",
-            "paramt": max_depth,
+            "paramt1": param1,
             "acuracia": acuracia,
             "precisao": precisao,
             "recall": recall,
@@ -136,7 +140,7 @@ def treinamentoteste(classifier_type, max_depth):
         return results
 
     elif classifier_type == 'KNN':
-        clf_knn = KNeighborsClassifier(n_neighbors=max_depth)
+        clf_knn = KNeighborsClassifier(n_neighbors=param1, leaf_size=param3, n_jobs=param2)
         clf_knn.fit(X_train, y_train)
         acc_knn = clf_knn.score(X_test, y_test)
         y_pred = clf_knn.predict(X_test)
@@ -155,9 +159,9 @@ def treinamentoteste(classifier_type, max_depth):
 
         results = {
             "tamanho:": size_str,
-            "classif": "K-Nearest Neighbors(Param: n_neighbors)",
+            "classif": "K-Nearest Neighbors",
             "media": "macro",
-            "paramt": max_depth,
+            "paramt1": param1,
             "acuracia": acuracia,
             "precisao": precisao,
             "recall": recall,
@@ -167,7 +171,7 @@ def treinamentoteste(classifier_type, max_depth):
         return results
 
     elif classifier_type == 'GBM': 
-        clf_gbm = GradientBoostingClassifier(learning_rate=max_depth, n_estimators=100) 
+        clf_gbm = GradientBoostingClassifier(learning_rate=param1, max_depth=param2, n_estimators=param3) 
         clf_gbm.fit(X_train, y_train)
         acc_gbm = clf_gbm.score(X_test, y_test)
         y_pred = clf_gbm.predict(X_test)
@@ -185,9 +189,9 @@ def treinamentoteste(classifier_type, max_depth):
 
         results = {
             "tamanho:": size_str,
-            "classif": "Gradient Boosting Classifier(Param: learning_rate)",
+            "classif": "Gradient Boosting Classifier",
             "media": "macro",
-            "paramt": max_depth,
+            "paramt1": param1,
             "acuracia": acuracia,
             "precisao": precisao,
             "recall": recall,

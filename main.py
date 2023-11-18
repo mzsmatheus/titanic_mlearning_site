@@ -13,18 +13,20 @@ def homepage():
         
         if 'classificador' in request.form:
             classificador = request.form['classificador'] 
-            max_depth = int(request.form.get('parametros', 0))
+            param1 = int(request.form.get('parametro1', 1))
+            param2 = int(request.form.get('parametro2', 2)) if request.form.get('parametro2') else 2
+            param3 = int(request.form.get('parametro3', 2)) if request.form.get('parametro3') else 2
 
             if classificador == 'KNN':
-                results = ml.treinamentoteste('KNN', max_depth)
+                results = ml.treinamentoteste('KNN', param1, param2, param3)
             elif classificador == 'SVC':
-                results = ml.treinamentoteste('SVC', max_depth)
+                results = ml.treinamentoteste('SVC', param1, param2, param3)
             elif classificador == 'DT':
-                results = ml.treinamentoteste('DT', max_depth)
+                results = ml.treinamentoteste('DT', param1, param2, param3)
             elif classificador == 'RF':
-                results = ml.treinamentoteste('RF', max_depth)
+                results = ml.treinamentoteste('RF', param1, param2, param3)
             elif classificador == 'GBM':
-                results = ml.treinamentoteste('GBM', max_depth)
+                results = ml.treinamentoteste('GBM', param1, param2, param3)
             else:
                 results = {}
             

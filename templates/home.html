@@ -81,8 +81,16 @@ html, body {
                     </select>
                 </div>
                 <div class="col-auto">
-                    <label for="parametros" class="form-label">Alterar os parâmetros (0-10):</label>
-                    <input type="number" id="parametros" name="parametros" min="0" max="10" class="form-control">
+                    <label for="parametro1" class="form-label">Parâmetro principal (2-100):</label>
+                    <input type="number" id="parametro1" name="parametro1" min="1" value="1" max="100" class="form-control">
+                </div>
+                <div class="col-auto">
+                    <label for="parametro2" class="form-label">Parâmetro secundário (2-10):</label>
+                    <input type="number" id="parametro2" name="parametro2" min="1" value="2" max="10" class="form-control">
+                </div>
+                <div class="col-auto">
+                    <label for="parametro3" class="form-label">Parâmetro terciário (2-100):</label>
+                    <input type="number" id="parametro3" name="parametro3" min="1"  value="2" max="100" class="form-control">
                 </div>
                 <div class="col-auto mt-4">
                     <br>
@@ -98,7 +106,7 @@ html, body {
                 <ul class="adjusted-list" style="font-size: larger;">
                     <li class="textos1">{{ size_str }}</li>
                     <li class="textos1">Classificador: {{ results.classif }}</li>
-                    <li class="textos1">Número do Parâmetro: {{ results.paramt }}</li>
+                    <li class="textos1">Número do Parâmetro: {{ results.paramt1 }}</li>
                     <br>
                     <li>Tipo de Média: {{ results.media }}</li>
                     <li class="fw-bold">Acurácia: {{ results.acuracia }}</li>
